@@ -43,6 +43,8 @@
       // Factory out elements
       el = this._el = opts.factory.screen(),
       wrapper = opts.factory.wrapper().appendTo(el);
+      // Size screen to parent's height
+      el.height($(this._container).outerHeight());
       // Add content
       wrapper.append(opts.content);
       // If we have a close button make one.
