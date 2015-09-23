@@ -42,15 +42,17 @@
       opts = this.opts(),
       // Factory out elements
       el = this._el = opts.factory.screen(),
-      wrapper = opts.factory.wrapper().appendTo(el);
+      outerWrapper = opts.factory.wrapper().appendTo(el),
+      wrapper = opts.factory.content().appendTo(outerWrapper);
       // Size screen to parent's height
       el.height($(this._container).outerHeight());
       // Add content
       wrapper.append(opts.content);
       // If we have a close button make one.
       if (opts.close == true) {
-        var close = opts.factory.close().on('click', function() {
+        var close = opts.factory.close().on('click', function(e) {
           opts.API.close();
+          e.preventDefault();
         });
         close.appendTo(wrapper);
       }
@@ -71,6 +73,11 @@
       opts.API._el.hide();
       opts.API.setCookie();
       opts.API.trigger('poppy-close', [opts, opts.API]);
+    },
+    content: function(content) {
+      var $wrapper = this._container.find('.poppy-wrapper-content');
+      $wrapper.find(':not(.poppy-close)').remove();
+      $wrapper.prepend(content);
     },
     needsPopup: function() {
       var opts = this.opts();
@@ -113,6 +120,9 @@
     },
     wrapper: function() {
       return $('<div/>').addClass('poppy-wrapper');
+    },
+    content: function() {
+      return $('<div/>').addClass('poppy-wrapper-content');
     },
     screen: function() {
       return $('<div/>').addClass('poppy-screen');
