@@ -44,6 +44,7 @@
       el = this._el = opts.factory.screen(),
       outerWrapper = opts.factory.wrapper().appendTo(el),
       wrapper = opts.factory.content().appendTo(outerWrapper);
+      outerWrapper.addClass(opts.wrapperClasses.join(' '));
       // Size screen to parent's height
       el.height($(this._container).outerHeight());
       // Add content
@@ -108,7 +109,8 @@
     close: true,
     cookie: false,
     cookieLife: 7,
-    cookiePath: "/" 
+    cookiePath: "/",
+    wrapperClasses: [] 
   }
   $.fn.poppy.log = function log() {
     if (window.console && console.log)
