@@ -47,6 +47,9 @@
       el.addClass(opts.wrapperClasses.join(' '));
       // Size screen to parent's height
       el.height($(this._container).outerHeight());
+      el.click(function() {
+        opts.API.close.call(_this);  
+      });
       // Add content
       wrapper.append(opts.content);
       // If we have a close button make one.
